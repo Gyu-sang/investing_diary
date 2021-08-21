@@ -1,0 +1,35 @@
+{
+    "content": "test",
+    "buysell": [
+        {
+            "corporation": 9,
+            "category": "buy",
+            "price": 2,
+            "quantity": 3,
+            "reason": "그냥"
+        }
+    ]
+}
+,
+
+"corporation": {
+    "id": 4,
+    "name": "카카오",
+    "logo": "카카오 로고",
+    "isFavorite": false
+},
+
+{
+    "content": "test",
+    "buysell": [
+        {
+            "corporation": {
+                "id": 4
+            },
+            "bs": true,
+            "price": 2,
+            "quantity": 3,
+            "reason": "그냥"
+        }
+    ]
+}

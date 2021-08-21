@@ -78,7 +78,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'users/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +133,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,6 +163,8 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, 
 }
 
 
@@ -168,13 +172,13 @@ REST_FRAMEWORK = {
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
-ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_USE_JWT = True
 
@@ -192,3 +196,31 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
 
+
+
+### secret.py 로 옮겨야 함.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = secret.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secret.EMAIL_HOST_PASSWORD
+
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# URL_FRONT = 'http://example.com' # 공개적인 웹페이지가 있다면 등록
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True # 유저가 받은 링크를 클릭하면 회원가입 완료되게끔
+ACCOUNT_EMAIL_REQUIRED = True
+
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+# EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/' # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+
+# 이메일에 자동으로 표시되는 사이트 정보
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "from Indy. "
