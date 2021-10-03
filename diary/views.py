@@ -85,13 +85,13 @@ class CorporationViewSet(viewsets.ModelViewSet):
     queryset = Corporation.objects.all() 
     serializer_class = CorporationSerializer 
 
-    def get_queryset(self):
-        user = self.request.user.id    
-        corporation = Corporation.objects.all().filter(
-            Q(favoritecorporation__user_id = user) | 
-            Q(favoritecorporation__isnull=True)
-        ).order_by('-favoritecorporation__updatedAt')
-        return corporation
+    # def get_queryset(self):
+    #     user = self.request.user.id    
+    #     corporation = Corporation.objects.all().filter(
+    #         Q(favoritecorporation__user_id = user) | 
+    #         Q(favoritecorporation__isnull=True)
+    #     ).order_by('-favoritecorporation__updatedAt')
+    #     return corporation
 
 
 class FavoriteCorporationViewSet(viewsets.ModelViewSet):
